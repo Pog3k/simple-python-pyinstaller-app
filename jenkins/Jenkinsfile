@@ -12,13 +12,20 @@ pipeline {
             }
         }
         stage('Test') {
-            agent {
-                docker {
-                    image 'qnib/pytest'
-                }
-            }
-            steps {
-                sh 'py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py'
+//            agent {
+//                docker {
+//                    image 'qnib/pytest'
+//                }
+//            }
+//          steps {
+//                sh 'py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py'
+		sh """
+		   PYTHONPATH=''
+		   nosetests --with-xunit --all-modules --traverse-namespace --with-coverage --cover-inclusive sources/test_calc.py
+		   python -m coverage xml --include=*
+		   pylint -f parseable -d I0011,R0801 sources/ | tee pylint.out
+		   """
+
             }
             post {
                 always {
