@@ -19,6 +19,7 @@ pipeline {
 //            }
 //          steps {
 //                sh 'py.test --verbose --junit-xml test-reports/results.xml sources/test_calc.py'
+          steps {
 		sh """
 		   PYTHONPATH=''
 		   nosetests --with-xunit --all-modules --traverse-namespace --with-coverage --cover-inclusive sources/test_calc.py
