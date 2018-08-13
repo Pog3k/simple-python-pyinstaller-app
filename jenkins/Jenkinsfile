@@ -25,7 +25,7 @@ pipeline {
 		   PYTHONPATH=''
 		   nosetests --with-xunit --all-modules --traverse-namespace --with-coverage --cover-inclusive sources/test_calc.py
 		   python -m coverage xml --include=*
-		   pylint -f parseable -d --ignore=sources/__pycache__ I0011,R0801 sources/* | tee pylint.out
+		   pylint -f parseable -d  I0011,R0801 --ignore=sources/__pycache__ sources/*.py | tee pylint.out
 		   """
 
             }
