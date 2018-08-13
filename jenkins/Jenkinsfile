@@ -26,13 +26,14 @@ pipeline {
 		   nosetests --with-xunit --all-modules --traverse-namespace --with-coverage --cover-inclusive sources/test_calc.py
 		   python -m coverage xml --include=*
 		   pylint -f parseable -d  I0011,R0801 --ignore=sources/__pycache__ sources/*.py | tee pylint.out
+           sloccount --duplicates --wide --details ./sources > sloccount.sc
 		   """
 
             }
             post {
                 always {
-                   junit 'nosetests.xml'
-                   cobertura autoUpdateHealth: false, autoUpdateStability: false, 
+                    junit 'nosetests.xml'
+                    cobertura autoUpdateHealth: false, autoUpdateStability: false, 
                              coberturaReportFile: 'coverage.xml', 
                              conditionalCoverageTargets: '70, 0, 0', 
                              failNoReports: false, 
@@ -49,6 +50,8 @@ pipeline {
                              categoriesPattern: '', defaultEncoding: '', excludePattern: '',
                               healthy: '', includePattern: '', messagesPattern: '', parserConfigurations:
                                [[parserName: 'PyLint', pattern: 'pylint.out']], unHealthy: ''
+
+                    sloccountPublish encoding: '', pattern: '*.sc'
 
                 }
             }
