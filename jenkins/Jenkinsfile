@@ -44,6 +44,12 @@ pipeline {
                              onlyStable: false, 
                              sourceEncoding: 'ASCII', 
                              zoomCoverageChart: false
+
+                    warnings canComputeNew: false, canResolveRelativePaths: false, 
+                             categoriesPattern: '', defaultEncoding: '', excludePattern: '',
+                              healthy: '', includePattern: '', messagesPattern: '', parserConfigurations:
+                               [[parserName: 'PyLint', pattern: 'pylint.out']], unHealthy: ''
+
                 }
             }
         }
