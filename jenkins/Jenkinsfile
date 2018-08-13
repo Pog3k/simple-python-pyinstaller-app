@@ -31,7 +31,7 @@ pipeline {
             }
             post {
                 always {
-                   // junit 'test-reports/results.xml'
+                   junit 'nosetest.xml'
                    cobertura autoUpdateHealth: false, autoUpdateStability: false, 
                              coberturaReportFile: 'coverage.xml', 
                              conditionalCoverageTargets: '70, 0, 0', 
